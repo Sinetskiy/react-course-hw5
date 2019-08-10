@@ -1,7 +1,19 @@
-import React, { Component } from 'react';
+import React, {PureComponent} from 'react';
 
 /*
   Напишите простой HOC и укажите для него displayName
 */
 
-export const withDisplayName = () => {}
+function getDisplayName(WrappedComponent) {
+    return WrappedComponent.displayName || 'Component';
+}
+
+export const withDisplayName = (WrappedComponent) => {
+    return class extends PureComponent {
+        static displayName = `HOC${getDisplayName(WrappedComponent)}`;
+
+        render() {
+            return <WrappedComponent/>
+        };
+    }
+};
