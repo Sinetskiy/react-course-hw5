@@ -16,4 +16,16 @@ import React from 'react';
   стиль 'background: red'
 */
 
-//export const withRedBackground
+export const withRedBackground = WrappedComponent => {
+    return class extends WrappedComponent {
+        render() {
+            const hocRender = super.render();
+            if (hocRender.type === 'button') {
+                // hocRender.style = {background: "red"};
+                // !!! не знаю как переопределить стиль непосредсвенно в обьекте
+                return <button style={{background: 'red'}} >With red background</button>;
+            }
+            return hocRender;
+        }
+    }
+};
